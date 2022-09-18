@@ -1,31 +1,66 @@
 <script setup>
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import HelloWorld from './components/HelloWorld.vue'
+import { ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
+import cookbook from '@/assets/images/cookbook.png'
+import cookbookActive from '@/assets/images/cookbook-active.png'
+import menu from '@/assets/images/menu.png'
+import menuActive from '@/assets/images/menu-active.png'
+import more from '@/assets/images/more.png'
+import moreActive from '@/assets/images/more-active.png'
+const active = ref(0)
+const title = ref('美食大全')
+const route = useRoute()
+
+watch(
+  () => route.meta,
+  meta => {
+    title.value = meta.title
+  }
+
+)
+
+
 </script>
-
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Vite + Vue" />
-</template>
+  <div class="index-container">
+    <van-nav-bar :title="title" safe-area-inset-top>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
+    </van-nav-bar>
+    <main>
+      <router-view></router-view>
+    </main>
+    <van-tabbar v-model="active" active-color="#000" inactive-color="#ccc" route safe-area-inset-bottom>
+      <van-tabbar-item to="/cookbook">
+        <span>菜谱大全</span>
+        <template #icon="props">
+          <img :src="props.active?cookbookActive:cookbook" alt="">
+        </template>
+      </van-tabbar-item>
+      <van-tabbar-item to="/category">
+        <span>分类</span>
+        <template #icon="props">
+          <img :src="props.active?menuActive:menu" alt="">
+        </template>
+      </van-tabbar-item>
+      <van-tabbar-item to="/more">
+        <span>更多</span>
+        <template #icon="props">
+          <img :src="props.active?moreActive:more" alt="">
+        </template>
+      </van-tabbar-item>
+    </van-tabbar>
+  </div>
+</template>
+<style lang="scss">
+.van-nav-bar__title {
+  color: #fff;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+
+.van-nav-bar__content {
+  background-color: #ee7530;
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+
+.van-tabbar--fixed {
+  bottom: 34px;
 }
 </style>

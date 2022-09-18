@@ -2,17 +2,23 @@
   "name": "cookbook",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host ",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "mock": "json-server ./mock/mock.js -p 9000"
   },
   "dependencies": {
-    "vue": "^3.2.37"
+    "axios": "^0.27.2",
+    "vant": "^3.6.2",
+    "vue": "^3.2.37",
+    "vue-router": "^4.1.5"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^3.1.0",
+    "node-sass": "^7.0.3",
+    "sass": "^1.54.9",
+    "unplugin-vue-components": "^0.22.7",
     "vite": "^3.1.0"
   }
 }
