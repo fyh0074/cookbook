@@ -1,17 +1,7 @@
 <script setup>
-import {ref,onMounted} from 'vue'
-import axios from 'axios'
-import swiper1 from '@/assets/images/swiper-1.jpg'
-import swiper2 from '@/assets/images/swiper-2.jpg'
-import swiper3 from '@/assets/images/swiper-3.jpg'
-
-const list = ref([])
-
-onMounted( async () => { 
-    const result = await axios.get('http://localhost:9000/list')
-    list.value = result.data.data.slice(0,5)
-})
-
+    import useListStore from '../../store/listStore'
+    const listStore = useListStore()
+    const list = listStore.filteredList(3)
 </script>
 <template>
     <div class="swiper-container">

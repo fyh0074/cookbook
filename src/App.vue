@@ -1,6 +1,7 @@
 <script setup>
-import { ref, watch } from 'vue'
+import { ref, watch,onMounted } from 'vue'
 import { useRoute } from 'vue-router'
+import userListStore from '@/store/listStore'
 import cookbook from '@/assets/images/cookbook.png'
 import cookbookActive from '@/assets/images/cookbook-active.png'
 import menu from '@/assets/images/menu.png'
@@ -16,10 +17,11 @@ watch(
   meta => {
     title.value = meta.title
   }
-
 )
-
-
+const listStore = userListStore()
+onMounted( async () => { 
+  listStore.loadData()
+})
 </script>
 <template>
   <div class="index-container">
@@ -29,7 +31,7 @@ watch(
     <main>
       <router-view></router-view>
     </main>
-    <van-tabbar v-model="active" active-color="#000" inactive-color="#ccc" route safe-area-inset-bottom>
+    <van-tabbar v-model="active" active-color="#000" inactive-color="#ccc" route :fixed="false">
       <van-tabbar-item to="/cookbook">
         <span>菜谱大全</span>
         <template #icon="props">
@@ -52,6 +54,12 @@ watch(
   </div>
 </template>
 <style lang="scss">
+.index-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 .van-nav-bar__title {
   color: #fff;
 }
@@ -60,7 +68,12 @@ watch(
   background-color: #ee7530;
 }
 
-.van-tabbar--fixed {
-  bottom: 34px;
+// .van-tabbar--fixed {
+//   bottom: 34px;
+// }
+main{
+  flex: 1;
+  overflow-y: scroll;
 }
+
 </style>

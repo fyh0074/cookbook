@@ -1,0 +1,15 @@
+html,body{
+    height:100%;
+    overflow: hidden; //屏幕是否可以滑动
+    ::-webkit-scrollbar{
+        display: nono;
+    }
+
+}
+*{
+    box-sizing: border-box;
+}
+#app{
+    height: 100%;
+
+}
